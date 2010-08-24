@@ -389,7 +389,8 @@ helper :cache_expired? do
 end
 
 helper :has_cache? do
-  File.file?(network_cache_path)
+  # if the file is too small it can't possibly be valid json
+  File.file?(network_cache_path) && File.size(network_cache_path) > 2
 end
 
 helper :has_commits_cache? do
